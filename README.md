@@ -15,6 +15,23 @@ services
 - `parent`: This is the project to receive access at the edge. However, there is no logic in the `loader` and `action` functions.
 - `child`: It has the logic of the loader and action functions instead of the parent. It does not have a react components.
 
+```js
+// services/parent/server.js
+import { createEventHandler } from "@remix-run/cloudflare-workers";
+import * as build from "@remix-run/dev/server-build";
+
+addEventListener(
+  "fetch",
+  createEventHandler({
+    build,
+    mode: process.env.NODE_ENV,
+    getLoadContext: (event) => {
+      return { event };
+    },
+  })
+);
+```
+
 ```tsx
 // services/parent/app/routes/index.tsx
 import type { LoaderFunction } from "@remix-run/cloudflare";
