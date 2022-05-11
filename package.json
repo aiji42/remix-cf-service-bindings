@@ -1,0 +1,11 @@
+{
+  "name": "cf-service-bindings",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "author": "Aiji Uejima <aiji42@a-tm.co.jp>",
+  "license": "MIT",
+  "workspaces": [
+    "./services/**"
+  ]
+}
