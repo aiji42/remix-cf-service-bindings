@@ -13,7 +13,7 @@ services
 ```
 
 - `parent`: This is the project to receive access at the edge. However, there is no logic in the `loader` and `action` functions.
-- `parent`: It has the logic of the loader and action functions instead of the parent. It does not have a react components.
+- `child`: It has the logic of the loader and action functions instead of the parent. It does not have a react components.
 
 ```tsx
 // services/parent/app/routes/index.tsx
