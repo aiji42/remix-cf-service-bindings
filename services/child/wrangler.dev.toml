@@ -1,0 +1,7 @@
+name = "cf-service-bindings-child"
+
+[site]
+bucket = "./public"
+
+[miniflare]
+port = 8788

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "baseBranch": "origin/main",
+  "pipeline": {
+    "dev": {
+      "cache": false
+    },
+    "deploy": {
+      "cache": false
+    },
+    "parent#deploy": {
+      "dependsOn": ["child#deploy"],
+      "cache": false
+    }
+  }
+}

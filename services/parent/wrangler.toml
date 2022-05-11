@@ -1,17 +1,28 @@
-name = "remix-cloudflare-workers"
-type = "javascript"
+name = "cf-service-bindings-parent"
 
-zone_id = ""
+compatibility_date = "2022-05-11"
+
 account_id = ""
-route = ""
 workers_dev = true
+main = "./build/index.js"
+
+[[unsafe.bindings]]
+name = "CHILD"
+type = "service"
+service = "cf-service-bindings-child"
+environment = "production"
 
 [site]
 bucket = "./public"
-entry-point = "."
 
 [build]
 command = "npm run build"
 
-[build.upload]
-format="service-worker"
+[miniflare.mounts]
+cf-service-bindings-child = "../child"
+
+# for miniflare
+[[experimental_services]]
+name = "CHILD"
+service = "cf-service-bindings-child"
+environment = "production"
