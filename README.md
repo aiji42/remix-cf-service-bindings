@@ -2,6 +2,49 @@
 
 - [Remix Docs](https://remix.run/docs)
 
+This is a sample project for using cloudflare worlers [service bindings](https://developers.cloudflare.com/workers/learning/using-services/) in Remix.
+
+**Script size must be kept under 1 megabyte to deploy to Cloudflare Workers. By splitting services and connecting them with service bindings, they are freed from that limitation.**
+
+```
+services
+ └ parent 
+ └ child
+```
+
+- `parent`: This is the project to receive access at the edge. However, there is no logic in the `loader` and `action` functions.
+- `parent`: It has the logic of the loader and action functions instead of the parent. It does not have a react components.
+
+```tsx
+// services/parent/app/routes/index.tsx
+import type { LoaderFunction } from "@remix-run/cloudflare";
+import { useLoaderData } from "@remix-run/react";
+
+export const loader: LoaderFunction = async ({ context }) => {
+  return CHILD.fetch(context.event.request.clone());
+};
+
+export default function Index() {
+  const data = useLoaderData();
+  return (
+    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
+      <h1>Welcome to Remix</h1>
+      responded from CHILD; <p>{JSON.stringify(data)}</p>
+    </div>
+  );
+}
+
+```
+
+```ts
+// services/child/app/routes/index.tsx
+export const loader = () => {
+  return { message: "this is child service" };
+};
+```
+
+![スクリーンショット 2022-05-11 午後7 38 41](https://user-images.githubusercontent.com/6711766/167831032-845673ec-fd6b-405c-8401-1083befc7df1.png)
+
 ## Development
 
 You will be running two processes during development:
