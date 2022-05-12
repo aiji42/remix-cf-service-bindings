@@ -1,9 +1,8 @@
 node_modules
-.turbo
 
-.cache/
-build/
-dist/
-public/build/
-.mf/
+/.cache
+/build
+/dist
+/public/build
+/.mf
 .env

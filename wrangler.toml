@@ -16,13 +16,7 @@ environment = "production"
 bucket = "./public"
 
 [build]
-command = "npm run build"
+command = "DEPLOY=true npm run build"
 
-[miniflare.mounts]
-cf-service-bindings-child = "../child"
-
-# for miniflare
-[[experimental_services]]
-name = "CHILD"
-service = "cf-service-bindings-child"
-environment = "production"
+[vars]
+SAMPLE_VAR = 'edge service'

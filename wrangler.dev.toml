@@ -1,0 +1,7 @@
+name = "cf-service-bindings-parent"
+
+[site]
+bucket = "./public"
+
+[vars]
+SAMPLE_VAR = 'edge service'

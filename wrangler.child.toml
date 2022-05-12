@@ -6,9 +6,11 @@ account_id = ""
 workers_dev = true
 main = "./build/index.js"
 
-
 [site]
 bucket = "./public"
 
 [build]
-command = "npm run build"
+command = "DEPLOY=true CHILD=true npm run build"
+
+[vars]
+SAMPLE_VAR = 'child service - 8'

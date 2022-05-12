@@ -6,61 +6,13 @@ This is a sample project for using cloudflare worlers [service bindings](https:/
 
 **Script size must be kept under 1 megabyte to deploy to Cloudflare Workers. By splitting services and connecting them with service bindings, they are freed from that limitation.**
 
-```
-services
- └ parent 
- └ child
-```
+Automatically split scripts during production deployment and deploy to two workers.  
 
-- `parent`: This is the project to receive access at the edge. However, there is no logic in the `loader` and `action` functions.
-- `child`: It has the logic of the loader and action functions instead of the parent. It does not have a react components.
+One side receives access at the edge. But it does not have loader and action logic, it just SSRs the React component.  
+The other holds the loader and action logic on behalf of the edge and is called from the edge by the service binding.  
+In other words, the bundle size per worker can be reduced because it is automatically divided into two groups: workers with design-related libraries, such as UI libraries, and workers with logic and libraries for processing server-side data.
 
-```js
-// services/parent/server.js
-import { createEventHandler } from "@remix-run/cloudflare-workers";
-import * as build from "@remix-run/dev/server-build";
-
-addEventListener(
-  "fetch",
-  createEventHandler({
-    build,
-    mode: process.env.NODE_ENV,
-    getLoadContext: (event) => {
-      return { event };
-    },
-  })
-);
-```
-
-```tsx
-// services/parent/app/routes/index.tsx
-import type { LoaderFunction } from "@remix-run/cloudflare";
-import { useLoaderData } from "@remix-run/react";
-
-export const loader: LoaderFunction = async ({ context }) => {
-  return CHILD.fetch(context.event.request.clone());
-};
-
-export default function Index() {
-  const data = useLoaderData();
-  return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome to Remix</h1>
-      responded from CHILD; <p>{JSON.stringify(data)}</p>
-    </div>
-  );
-}
-
-```
-
-```ts
-// services/child/app/routes/index.tsx
-export const loader = () => {
-  return { message: "this is child service" };
-};
-```
-
-![スクリーンショット 2022-05-11 午後7 38 41](https://user-images.githubusercontent.com/6711766/167831032-845673ec-fd6b-405c-8401-1083befc7df1.png)
+This worker isolation process is handled by esbuild plug-ins, so the developer does not need to be aware of any control over it.
 
 ## Development
 
@@ -86,5 +38,5 @@ If you don't already have an account, then [create a cloudflare account here](ht
 Once that's done, you should be able to deploy your app:
 
 ```sh
-npm run deploy
+npm run deploy:both
 ```
