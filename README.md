@@ -16,8 +16,7 @@ In other words, the bundle size per worker can be reduced because it is automati
 
 This worker isolation process is handled by esbuild plug-ins, so the developer does not need to be aware of any control over it.
 
-
-![プレゼンテーション1](https://user-images.githubusercontent.com/6711766/168193036-81e844d7-daae-4d14-9c57-42b7c99f574f.png)
+![プレゼンテーション1](https://user-images.githubusercontent.com/6711766/168193751-8ee86790-6a72-4a95-b0b1-8c89e5e199fe.png)
 
 ## TODO
 
