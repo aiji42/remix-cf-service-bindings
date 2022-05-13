@@ -2,7 +2,7 @@
 
 - [Remix Docs](https://remix.run/docs)
 
-This is a sample project for using cloudflare worlers [service bindings](https://developers.cloudflare.com/workers/learning/using-services/) in Remix.
+This is a sample project for using cloudflare workers [service bindings](https://developers.cloudflare.com/workers/learning/using-services/) in Remix.
 
 **Script size must be kept under 1 megabyte to deploy to Cloudflare Workers. By splitting services and connecting them with service bindings, they are freed from that limitation.**
 
@@ -13,6 +13,13 @@ The other holds the loader and action logic on behalf of the edge and is called 
 In other words, the bundle size per worker can be reduced because it is automatically divided into two groups: workers with design-related libraries, such as UI libraries, and workers with logic and libraries for processing server-side data.
 
 This worker isolation process is handled by esbuild plug-ins, so the developer does not need to be aware of any control over it.
+
+
+![プレゼンテーション1](https://user-images.githubusercontent.com/6711766/168193036-81e844d7-daae-4d14-9c57-42b7c99f574f.png)
+
+## TODO
+
+**I will soon release this as a plugin for esbuild so that everyone can easily use it.**
 
 ## Development
 
